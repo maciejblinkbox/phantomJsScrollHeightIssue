@@ -1,4 +1,4 @@
-phantomJsScrollHeightIssue
+scrollHeight DOM element property holds out of date value
 ==========================
 
 This repo contains jasmine tests that reproduce .scrollHeight issue on PhantomJS.
@@ -21,3 +21,26 @@ __Files in the project:__
 * /screenshots - directory holds screenshots from last execution. *.png files are ignored by this repo
 
 * /screenshot-exiting-1383057641030.png sample failure
+
+__Issue:__
+While testing my application using PhantomJS 1.9.2 I realized that some tests are failing because scrollHeight DOM element property is not updated correctly.
+
+Sequance of events is:
+- page is loaded, height of div #foo is 128px, .clientHeight is 128px, .scrollHeight is 128px
+- child element of #foo gets text changed from very short to quite long
+- .scrollHeight is expected to be greater than 128px but the value is not refreshed
+
+I can use remote debugger to step through the test and as soon as I modify #foo (which forces the browser to update the properties) scrollHeight starts to return correct value.
+
+Issue only happens when the document is in 2 nested iframes ( I use this setup when running e2e tests through testswarm ).
+The issue does not happen when I run the same test in 1 iframe (without second nested iframe).
+
+I have put together jasmine unit test that reproduces this problem in PhantomJS 1.9.2, 1.9.1 and 1.8.2 (haven't tried any other versions). The test shows how the issue is not a problem with 1 iframe and is a problem in 2 nested iframes.
+
+I didn't know what's the best way to share code, I decided to put an example together in a new github repo:
+https://github.com/maciejblinkbox/phantomJsScrollHeightIssue
+The repo contains batch files that run the unit tests and take screenshots each time a test execution is finished.
+
+Give me a shout if you need any help reproducing this issue.
+
+Thanks.
