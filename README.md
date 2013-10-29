@@ -37,10 +37,5 @@ The issue does not happen when I run the same test in 1 iframe (without second n
 
 I have put together jasmine unit test that reproduces this problem in PhantomJS 1.9.2, 1.9.1 and 1.8.2 (haven't tried any other versions). The test shows how the issue is not a problem with 1 iframe and is a problem in 2 nested iframes.
 
-I didn't know what's the best way to share code, I decided to put an example together in a new github repo:
-https://github.com/maciejblinkbox/phantomJsScrollHeightIssue
-The repo contains batch files that run the unit tests and take screenshots each time a test execution is finished.
-
-Give me a shout if you need any help reproducing this issue.
-
-Thanks.
+This issue has been raised on PhantomJS github project:
+https://github.com/ariya/phantomjs/issues/11717
